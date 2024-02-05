@@ -1,0 +1,51 @@
+import React, { useState } from 'react';
+
+function ChatSummary() {
+  const [userInput, setUserInput] = useState('');
+  const [summary, setSummary] = useState('');
+
+  const handleChange = (event) => {
+    setUserInput(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch('https://api.openai.com/v1/engines/davinci/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer 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' // Replace YOUR_API_KEY with your actual API key
+        },
+        body: JSON.stringify({
+          prompt: userInput,
+          max_tokens: 100
+        })
+      });
+
+      const data = await response.json();
+      setSummary(data.choices[0].text.trim());
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Input:
+          <textarea value={userInput} onChange={handleChange} />
+        </label>
+        <button type="submit">Summarize</button>
+      </form>
+      <div>
+        <h2>Summary:</h2>
+        <p>{summary}</p>
+      </div>
+    </div>
+  );
+}
+
+export default ChatSummary;

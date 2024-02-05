@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Analysis with AI</title>
+    <style>
+        /* Global styling for the body */
+
+body {
+
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+margin: 20px;
+
+background-color: #3498db; /* Blue background color */
+
+}
+
+/* Styling for the main heading (h1) */
+
+h1 {
+
+font-size: 32px;
+
+}
+
+/* Styling for the input text field */
+
+#inputText {
+width: 300px;
+padding: 8px;
+margin-bottom: 10px;
+border: 1px solid #fff; /* White border */
+border-radius: 5px;
+}
+/* Styling for the generate and clear buttons */
+#generateButton,
+
+#clearButton{
+background-color: #2ecc71; /* Green background color */
+color: white; /* White text color */
+padding: 10px 15px;
+border: none;
+border-radius: 5px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="top-section" id="inputText">
+            <h1>Welcome to Text Analysis with AI</h1>
+            <p>Enter text below to analyze and summarize</p>
+        </div>
+
+        <div>
+            <h2>Output:</h2>
+            <textarea id="outputSection"readonly></textarea>
+        </div>
+
+        <div class="bottom-section">
+            <input type="text" id="textbox" class="textbox" placeholder="Enter text here">
+            <button class="submit-button" id="submitButton" onclick="generateOutput()">Analyze</button>
+            <button class="reset-button" id="resetButton" onclick="clearFields()">Reset</button>
+
+        </div>
+    </div>
+    <script type="importmap">
+        {
+          "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai"
+          }
+        }
+    </script>
+    <script type="module">
+        import { GoogleGenerativeAI } from "@google/generative-ai";
+  
+        // Fetch your API_KEY
+        const API_KEY = "AIzaSyAk-DYg6JRz00z5NglWRdZJBxNGIPRwXLQ";
+  
+        // Access your API key (see "Set up your API key" above)
+        const genAI = new GoogleGenerativeAI(API_KEY);
+  
+        // ...
+  
+        const model = genAI.getGenerativeModel({ model: "MODEL_NAME"});
+  
+        //event listener
+        document.addEventListener('DOMContentLoaded', () => {
+            //setting up event listener for submit and reset button
+            const submitButton = document.getElementById('submitButton');
+            submitButton.addEventListener('click',generateOutput);
+
+            const resetButton = document.getElementById('resetButton');
+            resetButton.addEventListener('click',clearFields)
+        });
+        //generate output
+        async function generateOutput(){
+            const inputText = document.getElementById('inputText').value;
+            const outputTextArea = document.getElementById('output');
+
+        //using gemini ai
+        const model = genAI.getGenerativeModel({ model : "gemini-pro"});
+        const result = await model.generateContent(inputText);
+        const response = await result.response;
+        const generatedText = response.text();
+
+        //display
+        outputTextArea.value = generatedText;
+        }
+      </script>
+
+    </body>
+</html>

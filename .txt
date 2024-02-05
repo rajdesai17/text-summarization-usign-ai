@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two Section Page</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .top-section {
+            background-color: #ffffff;
+            padding: 50px;
+            text-align: center;
+            flex: 90%;
+        }
+
+        .bottom-section {
+            background-color: #1973db;
+            padding: 30px;
+            text-align: center;
+            flex: 10%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .textbox {
+            width: 700px;
+            padding: 50px;
+            font-size: 16px;
+            border-radius: 10px;
+        }
+
+        .submit-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 10px;
+            margin-left: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="top-section">
+        <h1>Summarize AI</h1>
+        <p>Output</p>
+    </div>
+
+    <div class="bottom-section">
+        <input type="text" class="textbox" placeholder="Enter text here">
+        <input type="submit" class="submit-button" value="Submit">
+    </div>
+</body>
+</html>
